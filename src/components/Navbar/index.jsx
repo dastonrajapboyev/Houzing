@@ -4,6 +4,7 @@ import { navbar } from "../../utils/navbar";
 import { Container, Link, Logo, Section, Wrapper, Main } from "./style";
 
 import LogoImg from "../../assets/icons/logo.png";
+import Button from "../Generic/Button";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ export const Home = () => {
             <Logo src={LogoImg} alt="LogoImg" />
           </Section>
           <Section>
-            {navbar.map(({ title, path }, index) => {
-              return (
+            {navbar.map(({ title, path, hidden }, index) => {
+              return !hidden && (  
                 <Link
                   className={({ isActive }) => isActive && "active"}
                   key={index}
@@ -27,7 +28,9 @@ export const Home = () => {
             })}
           </Section>
           <Section>
-            <button>Sign in</button>
+            <Button onClick={() => navigate("/signin")} type={"dark"}>
+              Sign in
+            </Button>
           </Section>
         </Wrapper>
       </Main>
