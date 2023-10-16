@@ -29,7 +29,7 @@ const Container = styled.button`
   min-width: 120px;
   font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : "14px")};
   height: ${({ height }) => (height ? `${height}px` : "44px")};
-  width: ${({ width }) => (width ? `${width}px` : "100%")};
+  width: ${({ width }) => (width ? `${width}px` : "130px")};
   cursor: pointer;
   ${getType}
   &:active {
