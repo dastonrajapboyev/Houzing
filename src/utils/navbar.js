@@ -14,8 +14,8 @@ export const navbar = [
   {
     id: useId,
     element: <Properties />,
-    title: "Propercies",
-    path: "/propercies",
+    title: "Properties",
+    path: "/properties",
     private: false,
     hidden: false,
   },
