@@ -23,13 +23,13 @@ Icons.Search = styled(Search)`
   margin-right: 8px;
 `;
 const MenuWrapper = styled.div`
-padding: 20px;
-background-color: #fff;
+  padding: 20px;
+  background-color: #fff;
 `;
 const Section = styled.div`
-display: flex;
-gap: 20px;
-margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
 `;
 
 export { Container, Icons, MenuWrapper, Section };
