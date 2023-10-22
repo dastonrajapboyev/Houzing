@@ -54,7 +54,7 @@ const Filter = () => {
         placeholder={"Enter an address, neighborhood, city, or ZIP code"}
       />
       <Dropdown menu={{ items }}>
-        <a onClick={(e) => e.preventDefault()}>
+        <a href="$" onClick={(e) => e.preventDefault()}>
           <Button type={"light"}>
             <Icons.Settings /> Advanced
           </Button>
