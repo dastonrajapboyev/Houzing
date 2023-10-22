@@ -1,22 +1,20 @@
-import React, {useRef}from "react";
-import { Dropdown } from "antd";
+import React, { useRef } from "react";
+import { Dropdown, Space } from "antd";
 import { Container, Icons, MenuWrapper, Section } from "./style";
 import { Input, Button } from "../Generic";
 
-
 const Filter = () => {
+  const countryRef = useRef();
+  const regionRef = useRef();
+  const cityRef = useRef();
+  const zipRef = useRef();
 
-  const countryRef = useRef()
-  const regionRef = useRef()
-  const cityRef = useRef()
-  const zipRef = useRef()
+  const roomsRef = useRef();
+  const sortRef = useRef();
+  const sizeRef = useRef();
 
-  const roomsRef = useRef()
-  const sortRef = useRef()
-  const sizeRef = useRef()
-
-  const minPriceRef = useRef()
-  const maxPriceRef = useRef()
+  const minPriceRef = useRef();
+  const maxPriceRef = useRef();
 
   const items = [
     {
@@ -54,11 +52,13 @@ const Filter = () => {
         placeholder={"Enter an address, neighborhood, city, or ZIP code"}
       />
       <Dropdown menu={{ items }}>
-        <a href="$" onClick={(e) => e.preventDefault()}>
-          <Button type={"light"}>
-            <Icons.Settings /> Advanced
-          </Button>
-        </a>
+        <span onClick={(e) =>  e.preventDefault() }>
+          <Space>
+            <Button type={"light"}>
+              <Icons.Settings /> Advanced
+            </Button>
+          </Space>
+        </span>
       </Dropdown>
       <Button>
         <Icons.Search />
