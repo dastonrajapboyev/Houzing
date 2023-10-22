@@ -19,3 +19,22 @@ body {
   /* padding */
   --padding: 0 130px;
 }
+
+.title {
+  color: #0d263b;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.56px;
+}
+
+.subtitle {
+  color: #0d263b;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}

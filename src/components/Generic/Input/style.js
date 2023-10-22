@@ -27,6 +27,7 @@ const Container = styled.input`
   align-items: center;
   border-radius: 2px;
   min-width: 120px;
+  color: #000;
   padding-left: ${({ $icon }) => ($icon ? "35px" : "20px")};
 
   font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : "14px")};
@@ -38,14 +39,15 @@ const Container = styled.input`
 `;
 
 const Wrapper = styled.div`
-display: flex;
-align-items: center;
-position: relative;
-width: ${({ width }) => (width ? `${width}px` : "100%")};
-`
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: ${({ width }) => (width ? `${width}px` : "100%")};
+`;
 const Icon = styled.div`
-position: absolute;
-left: 10px;
-`
+  position: absolute;
+  left: 10px;
+`;
+
 
 export { Container, Wrapper, Icon };

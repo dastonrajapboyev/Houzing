@@ -37,7 +37,9 @@ const Section = styled.div`
   }
 `;
 
-const Logo = styled.img``;
+const Logo = styled.img`
+  cursor: pointer;
+`;
 
 const Link = styled(NavLink)`
   text-decoration: none;
