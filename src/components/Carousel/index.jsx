@@ -27,7 +27,7 @@ const GenCarousel = () => {
       <Content>
         <Content.Title>Skyper Pool Partment</Content.Title>
         <Content.Desc className='subChild'>112 Glenwood Ave Hyde Park, Boston, MA</Content.Desc>
-        <Content.Price>$5,250/mo</Content.Price>
+        <Content.Price>$5,250/mo`</Content.Price>
       </Content>
       <Arrow onClick={onMove} name="left" data-name="left" direction="left" />
       <Arrow
@@ -38,6 +38,6 @@ const GenCarousel = () => {
       />
     </Container>
   );
-};
+};``
 
 export default GenCarousel;
