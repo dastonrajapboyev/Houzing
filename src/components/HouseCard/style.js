@@ -4,7 +4,7 @@ import { ReactComponent as bath } from "../../assets/icons/bath.svg";
 import { ReactComponent as car } from "../../assets/icons/car.svg";
 import { ReactComponent as ruler } from "../../assets/icons/ruler.svg";
 import { ReactComponent as love } from "../../assets/icons/love.svg";
-import { ReactComponent as resize } from "../../assets/icons/resize.svg";
+import { ReactComponent as resize1 } from "../../assets/icons/resize1.svg";
 
 const Container = styled.div`
   width: 380px;
@@ -50,7 +50,7 @@ Icons.Bed = styled(bed)``;
 Icons.Bath = styled(bath)``;
 Icons.Car = styled(car)``;
 Icons.Ruler = styled(ruler)``;
-Icons.Resize = styled(resize)``;
+Icons.Resize = styled(resize1)``;
 Icons.Love = styled(love)`
   width: 27px;
   height: 27px;
