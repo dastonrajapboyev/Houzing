@@ -69,8 +69,4 @@ const Divider = styled.div`
   width: 100%;
   height: 1px;
 `;
-<<<<<<< HEAD
 export { Container, Img, Content, Details, Icons, Divider };
-=======
-export { Container, Img, Content, Details, Icons, Divider };
->>>>>>> 1c1b77c6abf4182d08a96dd49817e07173cd232f

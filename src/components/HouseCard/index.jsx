@@ -44,8 +44,4 @@ const HouseCard = ({ url, title, info, bed, bath, car, ruler }) => {
   );
 };
 
-<<<<<<< HEAD
 export default HouseCard;
-=======
-export default HouseCard;
->>>>>>> 1c1b77c6abf4182d08a96dd49817e07173cd232f
