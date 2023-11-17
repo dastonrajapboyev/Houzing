@@ -7,6 +7,12 @@ const { REACT_APP_BASE_URL: url } = process.env;
 const Properties = () => {
   // console.log(`${url}/houses/list`);
   const [data, setData] = useState([]);
+// <<<<<<< HEAD
+// =======
+  // const { REACT_APP_BASE_URL: url } = process.env; // 'bu ham 1 yo'l lekin bunda networkda farq qiladi'
+  const url = process.env 
+  console.log(url);
+// >>>>>>> b7dbb8b (backend is not working well)
   useEffect(() => {
     fetch(`${url}/houses/list`)
     .then((res) => res.json())
