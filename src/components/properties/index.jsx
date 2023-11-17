@@ -4,7 +4,7 @@ import { Container } from "./style";
 const Properties = () => {
   const [data, setData] = useState([]);
   // const { REACT_APP_BASE_URL: url } = process.env; // 'bu ham 1 yo'l lekin bunda networkda farq qiladi'
-  const url = process.env // bu ikkinchi yo'l
+  const url = process.env 
   console.log(url);
   useEffect(() => {
     const fetchUserData = async () => {
