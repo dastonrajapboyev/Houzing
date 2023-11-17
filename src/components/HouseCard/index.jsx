@@ -1,31 +1,52 @@
-import React from "react";
+// import React from "react";
 // import { Container, Content, Details, Divider,  Icons, Img } from "./style";
-import { Container, Content, Details, Img, Icons, Divider } from "./style";
 import noImg from "../../assets/images/noimg.png";
+import { Container, Content, Details, Img, Icons, Divider } from "./style";
 
-const HouseCard = ({ url, title, info, bed, bath, car, ruler }) => {
+export const HouseCard = ({ data = {} }) => {
+  console.log(data);
+  const {
+    // attachments,
+    // salePrice,
+    // price,
+    // houseDetails,
+    address,
+    city,
+    // country,
+    // description,
+  } = data;
   return (
     <Container>
-      <Img src={url || noImg} />
+      {/* (attachments && attachments[0]?.imgPath)  ||  */}
+      <Img src={noImg || "no-image"} />
       <Content>
-        <div className="subTitle">{title || "New Apartment Nice Wiew"}</div>
-        <div className="info">{info || "Quincy St, Brooklyn, NY, USA"}</div>
+        <div className="subTitle">{/* {city}, {country}, {description} */}</div>
+        <div className="info">
+          {data.address || "Quincy St, Brooklyn, NY, USA"}
+        </div>
         <Details>
           <Details.Item>
             <Icons.Bed />
-            <div className="info">bed {bed || 0}</div>
+            <div className="info">
+              {data.city || "3 BEDS"} 
+              {/* bed {houseDetails?.beds || 0} */}
+            </div>
           </Details.Item>
           <Details.Item>
             <Icons.Bath />
-            <div className="info">bath {bath || 0}</div>
+            <div className="info">{/* bath {houseDetails?.bath || 0} */}0</div>
           </Details.Item>
           <Details.Item>
             <Icons.Car />
-            <div className="info">car {car || 0}</div>
+            <div className="info">car 2{/* {houseDetails?.car || 0} */}</div>
           </Details.Item>
           <Details.Item>
             <Icons.Ruler />
-            <div className="info">ruler {ruler || 0}</div>
+            <div className="info">
+              Area
+              {/* {houseDetails?.area || 0} */}
+              kv
+            </div>
           </Details.Item>
         </Details>
       </Content>
