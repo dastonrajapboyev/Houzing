@@ -10,7 +10,8 @@ const Container = styled.div`
   width: 380px;
   /* height: 430px; */
   border-radius: 3px;
-  margin: 100px;
+  /* margin: 50px; */
+  margin: 50px auto;
   border-radius: 3px;
   filter: drop-shadow(0px 20px 38px rgba(0, 0, 0, 0.06))
     drop-shadow(0px 7px 46px rgba(0, 0, 0, 0.06))
@@ -21,6 +22,7 @@ const Container = styled.div`
 const Img = styled.img`
   width: 100%;
   max-height: 220px;
+  min-height: 220px;
 `;
 const Content = styled.div`
   display: flex;

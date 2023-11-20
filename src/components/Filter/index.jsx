@@ -51,7 +51,7 @@ const Filter = () => {
         $icon={<Icons.Houses />}
         placeholder={"Enter an address, neighborhood, city, or ZIP code"}
       />
-      <Dropdown menu={{ items }}>
+      <Dropdown menu={{ items }} trigger={['click']}>
         <span onClick={(e) =>  e.preventDefault() }>
           <Space>
             <Button type={"light"}>

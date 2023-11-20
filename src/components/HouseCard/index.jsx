@@ -6,45 +6,45 @@ import { Container, Content, Details, Img, Icons, Divider } from "./style";
 export const HouseCard = ({ data = {} }) => {
   console.log(data);
   const {
-    // attachments,
-    // salePrice,
-    // price,
-    // houseDetails,
+    attachments,
+    salePrice,
+    price,
+    houseDetails,
     address,
     city,
-    // country,
-    // description,
+    country,
+    region,
+    description,
   } = data;
+
+  
   return (
     <Container>
-      {/* (attachments && attachments[0]?.imgPath)  ||  */}
-      <Img src={noImg || "no-image"} />
+      <Img src={attachments?.imgPath  ||  noImg} alt="img"  />
       <Content>
-        <div className="subTitle">{/* {city}, {country}, {description} */}</div>
+        <div className="subTitle inline">
+          {country}, {city}, {description}
+        </div>
         <div className="info">
-          {data.address || "Quincy St, Brooklyn, NY, USA"}
+          {address || "Quincy St, Brooklyn, NY, USA"} {region}
         </div>
         <Details>
           <Details.Item>
             <Icons.Bed />
-            <div className="info">
-              {data.city || "3 BEDS"} 
-              {/* bed {houseDetails?.beds || 0} */}
-            </div>
+            <div className="info">bed {houseDetails?.beds || 0}</div>
           </Details.Item>
           <Details.Item>
             <Icons.Bath />
-            <div className="info">{/* bath {houseDetails?.bath || 0} */}0</div>
+            <div className="info"> bath {houseDetails?.bath || 0}</div>
           </Details.Item>
           <Details.Item>
             <Icons.Car />
-            <div className="info">car 2{/* {houseDetails?.car || 0} */}</div>
+            <div className="info">car {houseDetails?.garage || 0}</div>
           </Details.Item>
           <Details.Item>
             <Icons.Ruler />
             <div className="info">
-              Area
-              {/* {houseDetails?.area || 0} */}
+              Area {houseDetails?.area || 0}
               kv
             </div>
           </Details.Item>
@@ -53,8 +53,8 @@ export const HouseCard = ({ data = {} }) => {
       <Divider />
       <Content $footer>
         <Details.Item $detailsFooter>
-          <div className="info">$2,800/mo</div>
-          <div className="subTitle">$7,500/mo</div>
+          <div className="info">{price || "$2,800/mo"}</div>
+          <div className="subTitle">{salePrice || "$7,500/mo"}</div>
         </Details.Item>
         <Details.Item $row>
           <Icons.Resize />
