@@ -4,7 +4,7 @@ import noImg from "../../assets/images/noimg.png";
 import { Container, Content, Details, Img, Icons, Divider } from "./style";
 
 export const HouseCard = ({ data = {} }) => {
-  console.log(data);
+  // console.log(data);
   const {
     attachments,
     salePrice,
@@ -17,10 +17,9 @@ export const HouseCard = ({ data = {} }) => {
     description,
   } = data;
 
-  
   return (
     <Container>
-      <Img src={attachments?.imgPath  ||  noImg} alt="img"  />
+      <Img src={(attachments && attachments[0]?.imgPath) || noImg} alt="img" />
       <Content>
         <div className="subTitle inline">
           {country}, {city}, {description}
