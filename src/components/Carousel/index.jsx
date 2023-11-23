@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Container, Arrow, Img } from "./style";
+import { Arrow, Blur, Container, Content, Img } from "./style";
 import { Carousel } from "antd";
 
 import Img1 from '../../assets/images/house1.png'
@@ -24,6 +24,14 @@ const GenCarousel = () => {
        <Img src={Img1}/>
        <Img src={Img2}/>
       </Carousel>
+      <Blur />
+      <Content>
+        <Content.Title>Skyper Pool Partment</Content.Title>
+        <Content.Desc className='subChild'>
+          112 Glenwood Ave Hyde Park, Boston, MA
+        </Content.Desc>
+        <Content.Price>5,250 / month</Content.Price>
+      </Content>
       <Arrow onClick={onMove} name="left" data-name="left" direction="left" />
       <Arrow
         onClick={onMove}

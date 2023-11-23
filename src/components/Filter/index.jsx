@@ -54,7 +54,7 @@ const query = useSearch()
             <Input
             defaultValue={query.get('city')}
               onChange={onChange}
-              name="city"
+              name="address"
               ref={cityRef}
               placeholder="City"
             />
