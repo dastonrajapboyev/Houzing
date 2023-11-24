@@ -13,7 +13,7 @@ const Container = styled.div`
   height: 430px;
   border-radius: 3px;
   /* margin: 50px; */
-  margin: auto;
+  margin:auto;
   border-radius: 3px;
   filter: drop-shadow(0px 20px 38px rgba(0, 0, 0, 0.06))
     drop-shadow(0px 7px 46px rgba(0, 0, 0, 0.06))

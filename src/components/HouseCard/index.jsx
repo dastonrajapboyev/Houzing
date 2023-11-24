@@ -13,7 +13,7 @@ export const HouseCard = ({ data = {} }) => {
     address,
     city,
     country,
-    region,
+    category,
     description,
   } = data;
 
@@ -25,7 +25,8 @@ export const HouseCard = ({ data = {} }) => {
           {country}, {city}, {description}
         </div>
         <div className="info">
-          {address || "Quincy St, Brooklyn, NY, USA"} {region}
+          {address || "Quincy St, Brooklyn, NY, USA"} -{" "}
+          {category?.name || "category"}
         </div>
         <Details>
           <Details.Item>
