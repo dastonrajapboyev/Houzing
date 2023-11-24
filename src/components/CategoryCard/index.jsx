@@ -4,8 +4,7 @@ import noImg from "../../assets/images/noimg.png";
 import { Container, Content, Img, Blur } from "./style";
 
 export const HouseCard = ({ data = {} }) => {
-
-  const { name } = data;
+ const { name } = data;
 
   return (
     <Container>
