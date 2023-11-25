@@ -43,3 +43,13 @@ body {
   overflow: hidden;
   white-space: nowrap;
 }
+.center {
+  height: 400px;
+}
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
+  font-size: 25px !important;
+  /* background-color: #000 !important;
+color: #000 !important; */
+}

@@ -2,13 +2,13 @@
 // import { Container, Content, Details, Divider,  Icons, Img } from "./style";
 import noImg from "../../assets/images/noimg.png";
 import { Container, Content, Img, Blur } from "./style";
-
-export const HouseCard = ({ data = {} }) => {
+import category from "../../assets/images/category-img.png"
+export const CategoryCard = ({ data = {} }) => {
  const { name } = data;
 
   return (
     <Container>
-      <Img src={ noImg} alt="img" />
+      <Img src={category || noImg}  />
       <Blur />
       <Content>
         {name || "category Name"}
@@ -17,4 +17,4 @@ export const HouseCard = ({ data = {} }) => {
   );
 };
 
-export default HouseCard;
+export default CategoryCard;

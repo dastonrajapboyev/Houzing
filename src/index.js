@@ -4,8 +4,8 @@ import "./index.css";
 import Root from "./root";
 import RootContext from "./context";
 import 'antd/dist/reset.css'
-// import 'antd/dist/antd.css';
-// import "antd/dist/antd.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
