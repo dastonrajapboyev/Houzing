@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as Houses } from "../../assets/icons/houses.svg";
 import { ReactComponent as Settings } from "../../assets/icons/settings.svg";
 import { ReactComponent as Search } from "../../assets/icons/search.svg";
-
+// import { Select, Space } from "antd";
 const Container = styled.div`
   display: flex;
   padding: var(--padding);
@@ -34,5 +34,9 @@ const Section = styled.div`
   gap: 20px;
   margin-bottom: 20px;
 `;
+// const SelectAnt = styled(Select)`
+//   width: 120px;
+// `;
+// const SpaceAnt = styled(Space)``;
 
-export { Container, Icons, MenuWrapper, Section };
+export { Container, Icons, MenuWrapper, Section /*, SelectAnt, SpaceAnt*/ };

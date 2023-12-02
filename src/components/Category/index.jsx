@@ -28,10 +28,10 @@ const Category = () => {
     fetch(`${url}/categories/list`, {
       headers: {
         Authorization:
-          "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxODkzNjk5NiwiaWF0IjoxNzAwOTM2OTk2LCJzY29wZSI6IlJPTEVfVVNFUiJ9.ZTSbdljVH7mHXv7FUAqS5c9Qqn8i9XcFYtwrvbDqKlXVA3_MmTXu79xzxrVkFn36K47hyVW-0Gw5vZ50nDgjtzwol7q1eNP9J_xHcTslpR9ZKPJGtqi9-erMWcZbXJ9iY8GIFYe3KwyIK2TLCcRYzRuYvzOuUBX8liZFqoRpnFe_cE81-J4RL4TcldCsHR-usvvwmMZAbo5h2bdQansgwxtXKoW0pgBDN9ZtMR0Pbqtoky3optIhRPxcFOrCg4MuEgPpntLpZ8EWGOVEcU3FL51gJQe1t2A4j7p0L03iOXrIXDEOtLcqUjt0XdBVfnQ_3nGeeCIiGrU5AUXGrw0TWQ",
-        // Other headers if required
+          "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTQ0NzEyMSwiaWF0IjoxNzAxNDQ3MTIxLCJzY29wZSI6IlJPTEVfVVNFUiJ9.g2o6XEw0S3eU86BpOtwtYwGyd1k873Dk9npnqe4r83RS0cAILS8HWkiPAG_cTnFp8x3xPjmFyTQxK37ek-PXI15gXXXqcN0Duv9QVljLgXEt4cQp_bPzAayQolJJ0QlvSQUlEGXOedyr5MPWizPPT2A4YxqYmvKZvR1YwXW9DcfaPxD498hDpF62KslxDXkg3KDVRTXfWPZ1bS7ms4MGmteTW3R7qVUKlB2zZnBNkHuFydhxXLnrJGA0O6KD5pP-EYzG-C_CZ82M-dS1F-o9iN5BnzzHn4iseVLf1wrvh4I8M4u6IrVXvw6yKkoVa9zoyCPfshf3Yb4i0VqPnsfbYA",
       },
     })
+    
       .then((res) => res.json())
       .then((res) => {
         setData(res?.data || []);
