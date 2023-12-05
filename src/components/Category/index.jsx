@@ -23,30 +23,28 @@ const settings = {
 const Category = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-
+  // 
   useEffect(() => {
     fetch(`${url}/categories/list`, {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTQ0NzEyMSwiaWF0IjoxNzAxNDQ3MTIxLCJzY29wZSI6IlJPTEVfVVNFUiJ9.g2o6XEw0S3eU86BpOtwtYwGyd1k873Dk9npnqe4r83RS0cAILS8HWkiPAG_cTnFp8x3xPjmFyTQxK37ek-PXI15gXXXqcN0Duv9QVljLgXEt4cQp_bPzAayQolJJ0QlvSQUlEGXOedyr5MPWizPPT2A4YxqYmvKZvR1YwXW9DcfaPxD498hDpF62KslxDXkg3KDVRTXfWPZ1bS7ms4MGmteTW3R7qVUKlB2zZnBNkHuFydhxXLnrJGA0O6KD5pP-EYzG-C_CZ82M-dS1F-o9iN5BnzzHn4iseVLf1wrvh4I8M4u6IrVXvw6yKkoVa9zoyCPfshf3Yb4i0VqPnsfbYA",
-      },
-    })
-    
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTc5MzE4OSwiaWF0IjoxNzAxNzkzMTg5LCJzY29wZSI6IlJPTEVfVVNFUiJ9.jcvHLF4KPgPtBb8xXFkp3GYwetr_x_388j2cH8MaeQG8PInrKSNfFm0fwNTZbASxeMSP4IO8aRT2g4f7vk-6ygKIPEBCEy75947Kr6eH0uAE_HOTbPed0gWvvEHrv3ISarBUnNkebiSCaHdo8f52F1EQFAtxRM3jxzSeKhKQqryrZwdZdIMhXC77yLYxUOepciju3V8jrwHNnDnT2sTULICPPg3gxzTLOsmgn7rVEF71A95qOMFPDwOuvRiETrm07EDP2c78T6h7fF3h5k_24J_IOYKeN-s8HB5c8_8zKrR4na_d-zSlA8hnIQ0DQKfuitffZnEHEsZU_VCFEsudGw",
+        },
+      })
       .then((res) => res.json())
       .then((res) => {
         setData(res?.data || []);
       });
   }, []);
-
   return (
     <Container>
       <Slider {...settings}>
-        {data.map((value, index) => {
+        {data.map((value) => {
           return (
             <CategoryCard
-              onClick={() => navigate(`/properties?category_id=${value.id}`)}
               data={value}
-              key={index}
+              onClick={() => navigate(`/properties?category_id=${value.id}`)}
+              key={value.id}
             />
           );
         })}

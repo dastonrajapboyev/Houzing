@@ -18,6 +18,13 @@ const { REACT_APP_BASE_URL: url } = process.env;
 const Filter = () => {
   // const { REACT_APP_BASE_URL: url } = process.env;
   const [data, setData] = useState([]);
+  const [value, setValue] = useState("Select Category");
+  useEffect(() => {
+    // if(query.get('category_id')) {
+    //   let res = data.filter(ctg =>ctg.id === Number(query.get('category_id')))
+    //   setValue(res?.name)
+    // }
+  }, []);
   // const [cities, setCities] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,14 +36,12 @@ const Filter = () => {
   const zipRef = useRef();
 
   const roomsRef = useRef();
-  const sortRef = useRef();
-  // const sizeRef = useRef();
 
   const minPriceRef = useRef();
   const maxPriceRef = useRef();
-  console.log(query.get("country"), "params");
+  // console.log(query.get("country"), "params");
 
-  const onChange = ({ target: { name, value /*placeholder*/ } }) => {
+  const onChange = ({ target: { name, value, placeholder } }) => {
     // console.log(name, value, placeholder);
     navigate(`${location?.pathname}${uzeReplace(name, value)}`);
   };
@@ -44,7 +49,7 @@ const Filter = () => {
     fetch(`${url}/categories/list`, {
       headers: {
         Authorization:
-          "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTQ0NzEyMSwiaWF0IjoxNzAxNDQ3MTIxLCJzY29wZSI6IlJPTEVfVVNFUiJ9.g2o6XEw0S3eU86BpOtwtYwGyd1k873Dk9npnqe4r83RS0cAILS8HWkiPAG_cTnFp8x3xPjmFyTQxK37ek-PXI15gXXXqcN0Duv9QVljLgXEt4cQp_bPzAayQolJJ0QlvSQUlEGXOedyr5MPWizPPT2A4YxqYmvKZvR1YwXW9DcfaPxD498hDpF62KslxDXkg3KDVRTXfWPZ1bS7ms4MGmteTW3R7qVUKlB2zZnBNkHuFydhxXLnrJGA0O6KD5pP-EYzG-C_CZ82M-dS1F-o9iN5BnzzHn4iseVLf1wrvh4I8M4u6IrVXvw6yKkoVa9zoyCPfshf3Yb4i0VqPnsfbYA",
+          "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTc5MzE4OSwiaWF0IjoxNzAxNzkzMTg5LCJzY29wZSI6IlJPTEVfVVNFUiJ9.jcvHLF4KPgPtBb8xXFkp3GYwetr_x_388j2cH8MaeQG8PInrKSNfFm0fwNTZbASxeMSP4IO8aRT2g4f7vk-6ygKIPEBCEy75947Kr6eH0uAE_HOTbPed0gWvvEHrv3ISarBUnNkebiSCaHdo8f52F1EQFAtxRM3jxzSeKhKQqryrZwdZdIMhXC77yLYxUOepciju3V8jrwHNnDnT2sTULICPPg3gxzTLOsmgn7rVEF71A95qOMFPDwOuvRiETrm07EDP2c78T6h7fF3h5k_24J_IOYKeN-s8HB5c8_8zKrR4na_d-zSlA8hnIQ0DQKfuitffZnEHEsZU_VCFEsudGw",
       },
     })
       .then((res) => res.json())
@@ -52,11 +57,20 @@ const Filter = () => {
         setData(res?.data || []);
       });
   }, []);
+  useEffect(() => {
+    let [d] = data?.filter(
+      (ctg) => ctg.id === Number(query.get("category_id"))
+    );
+    d?.name && setValue(d?.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location?.search, data]);
 
-  const onChangeCategory =(category_id)=>{
-console.log(category_id);
-navigate(`/properties/${uzeReplace('category_id', category_id)}`)
-  }
+  const onChangeCategory = (category_id) => {
+    navigate(`/properties/${uzeReplace("category_id", category_id)}`);
+  };
+  // const onChangeSort = (sort) => {
+  //   navigate(`/properties${uzeReplace('sort', sort)}`);
+  // };
 
   const items = [
     {
@@ -97,23 +111,27 @@ navigate(`/properties/${uzeReplace('category_id', category_id)}`)
           <h1 className="subtitle">Apartment info</h1>
           <Section>
             <Input ref={roomsRef} placeholder="Rooms" />
-            <Input ref={sortRef} placeholder="Sort" />
-            {/* <Input ref={sizeRef} placeholder="Size" /> */}
             <Space>
               <Select
                 style={{
-                  width: 120,
+                  width: 200,
                 }}
-                defaultValue='Select' // Set the default value to the id of the option you want to select
-                // onChange={(value) => {
-                //   console.log("Selected value:", value); // Use the selected value here
-                // }}
-                onChange={onChangeCategory}
-              >
-                {data.map((value, index) => {
+                defaultValue='Select Sort'
+                onChange={onChangeCategory}>
+                value={value}
+                <Select.Option value={"asc"}>O'suvchi</Select.Option>
+                <Select.Option value={"desc"}>kamayuvchi</Select.Option>
+              </Select>
+              <Select
+                style={{
+                  width: 200,
+                }}
+                defaultValue={value}
+                onChange={onChangeCategory}>
+                value={value}
+                {data.map((value) => {
                   return (
-                    
-                    <Select.Option value={value?.id} key={index}>
+                    <Select.Option value={value?.id} key={value.id}>
                       {value.name}
                     </Select.Option>
                   );
@@ -132,7 +150,7 @@ navigate(`/properties/${uzeReplace('category_id', category_id)}`)
     },
   ];
 
-  console.log(uzeReplace("address", "toshkent"));
+  // console.log(uzeReplace("address", "toshkent"));
 
   return (
     <Container>

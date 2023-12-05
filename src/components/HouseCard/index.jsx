@@ -1,7 +1,7 @@
 // import React from "react";
 // import { Container, Content, Details, Divider,  Icons, Img } from "./style";
-import noImg from "../../assets/images/noimg.png";
 import { Container, Content, Details, Img, Icons, Divider } from "./style";
+import noImg from "../../assets/images/noimg.png";
 
 export const HouseCard = ({ data = {} }) => {
   // console.log(data);
@@ -13,8 +13,8 @@ export const HouseCard = ({ data = {} }) => {
     address,
     city,
     country,
-    category,
     description,
+    category,
   } = data;
 
   return (
@@ -26,7 +26,7 @@ export const HouseCard = ({ data = {} }) => {
         </div>
         <div className="info">
           {address || "Quincy St, Brooklyn, NY, USA"} -{" "}
-          {category?.name || "category"}
+          {category?.name || "category"} {houseDetails?.room || 0}-rooms
         </div>
         <Details>
           <Details.Item>
