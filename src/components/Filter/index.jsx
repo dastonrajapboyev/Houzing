@@ -62,15 +62,16 @@ const Filter = () => {
       (ctg) => ctg.id === Number(query.get("category_id"))
     );
     d?.name && setValue(d?.name);
+    !query.get("category_id") && setValue("Select Category")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.search, data]);
 
   const onChangeCategory = (category_id) => {
     navigate(`/properties/${uzeReplace("category_id", category_id)}`);
   };
-  // const onChangeSort = (sort) => {
-  //   navigate(`/properties${uzeReplace('sort', sort)}`);
-  // };
+  const onChangeSort = (sort) => {
+    navigate(`/properties${uzeReplace("sort", sort)}`);
+  };
 
   const items = [
     {
@@ -110,15 +111,16 @@ const Filter = () => {
           </Section>
           <h1 className="subtitle">Apartment info</h1>
           <Section>
-            <Input ref={roomsRef} placeholder="Rooms" />
+            <Input name='room' onChange={onChange} ref={roomsRef} placeholder="Rooms" />
             <Space>
               <Select
                 style={{
                   width: 200,
                 }}
-                defaultValue='Select Sort'
-                onChange={onChangeCategory}>
-                value={value}
+                defaultValue={query.get("sort") || "Select Sort"}
+                onChange={onChangeSort}>
+                {/* value={value} */}
+                <Select.Option value={""}>Select Sort</Select.Option>
                 <Select.Option value={"asc"}>O'suvchi</Select.Option>
                 <Select.Option value={"desc"}>kamayuvchi</Select.Option>
               </Select>
@@ -129,6 +131,7 @@ const Filter = () => {
                 defaultValue={value}
                 onChange={onChangeCategory}>
                 value={value}
+                <Select.Option value={""}>Select Category</Select.Option>
                 {data.map((value) => {
                   return (
                     <Select.Option value={value?.id} key={value.id}>
@@ -141,8 +144,8 @@ const Filter = () => {
           </Section>
           <h1 className="subtitle">Price</h1>
           <Section>
-            <Input ref={minPriceRef} placeholder="Min Price" />
-            <Input ref={maxPriceRef} placeholder="Max Price" />
+            <Input onChange={onChange} name='min_price' ref={minPriceRef} placeholder="Min Price" />
+            <Input onChange={onChange} name='max_price' ref={maxPriceRef} placeholder="Max Price" />
           </Section>
         </MenuWrapper>
       ),
