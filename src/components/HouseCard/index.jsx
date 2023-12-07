@@ -3,7 +3,7 @@
 import { Container, Content, Details, Img, Icons, Divider } from "./style";
 import noImg from "../../assets/images/noimg.png";
 
-export const HouseCard = ({ data = {} }) => {
+export const HouseCard = ({ data = {}, gap }) => {
   // console.log(data);
   const {
     attachments,
@@ -18,7 +18,9 @@ export const HouseCard = ({ data = {} }) => {
   } = data;
 
   return (
-    <Container>
+    <div style={{display: 'flex'}}>
+
+    <Container gap={gap}>
       <Img src={(attachments && attachments[0]?.imgPath) || noImg} alt="img" />
       <Content>
         <div className="subTitle inline">
@@ -62,6 +64,7 @@ export const HouseCard = ({ data = {} }) => {
         </Details.Item>
       </Content>
     </Container>
+    </div>
   );
 };
 

@@ -8,22 +8,14 @@ const Container = styled.div`
   max-width: 1440px;
   width: 100%;
   height: 100%;
+  margin-top: 96px;
 `;
-
 
 const Content = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-
   display: flex;
   flex-direction: column;
-  color: white;
-  justify-content: center;
   align-items: center;
+  margin-bottom: 32px;
 `;
 
-
-export { Container,Content };
+export { Container,  Content };

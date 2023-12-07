@@ -12,13 +12,19 @@ const Container = styled.div`
   min-width: 330px;
   height: 430px;
   border-radius: 3px;
-  /* margin: 50px; */
-  margin:auto;
+  margin: ${({ gap }) => {
+    return gap && `0 ${gap}px`;
+  }};
+  background-color: #fff;
+  /* margin: auto; */
   border-radius: 3px;
-  filter: drop-shadow(0px 20px 38px rgba(0, 0, 0, 0.06))
-    drop-shadow(0px 7px 46px rgba(0, 0, 0, 0.06))
-    drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.06));
+  &:hover {
+    filter: drop-shadow(0px 20px 38px rgba(0, 0, 0, 0.06))
+      drop-shadow(0px 7px 46px rgba(0, 0, 0, 0.06))
+      drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.06));
+  }
   border: 1px solid #e6e9ec;
+  cursor: pointer;
 `;
 
 const Img = styled.img`
