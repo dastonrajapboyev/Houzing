@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container,Content } from "./style";
-import CategoryCard from "../CategoryCard";
+import { Container, Content } from "./style";
+import HouseCard from "../HouseCard";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
@@ -20,17 +20,11 @@ const settings = {
   appendDots: (dots) => <h1> {dots} </h1>,
 };
 
-const Category = () => {
+const Recommended = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  //
   useEffect(() => {
-    fetch(`${url}/categories/list`, {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTc5MzE4OSwiaWF0IjoxNzAxNzkzMTg5LCJzY29wZSI6IlJPTEVfVVNFUiJ9.jcvHLF4KPgPtBb8xXFkp3GYwetr_x_388j2cH8MaeQG8PInrKSNfFm0fwNTZbASxeMSP4IO8aRT2g4f7vk-6ygKIPEBCEy75947Kr6eH0uAE_HOTbPed0gWvvEHrv3ISarBUnNkebiSCaHdo8f52F1EQFAtxRM3jxzSeKhKQqryrZwdZdIMhXC77yLYxUOepciju3V8jrwHNnDnT2sTULICPPg3gxzTLOsmgn7rVEF71A95qOMFPDwOuvRiETrm07EDP2c78T6h7fF3h5k_24J_IOYKeN-s8HB5c8_8zKrR4na_d-zSlA8hnIQ0DQKfuitffZnEHEsZU_VCFEsudGw",
-      },
-    })
+    fetch(`${url}/houses/list`)
       .then((res) => res.json())
       .then((res) => {
         setData(res?.data || []);
@@ -39,7 +33,7 @@ const Category = () => {
   return (
     <Container>
       <Content>
-        <h1 className="title">Category</h1>
+        <h1 className="title">Recent Properties for Rent</h1>
         <div className="info">
           Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.
         </div>
@@ -47,7 +41,8 @@ const Category = () => {
       <Slider {...settings}>
         {data.map((value) => {
           return (
-            <CategoryCard
+            <HouseCard
+              gap={10}
               data={value}
               onClick={() => navigate(`/properties?category_id=${value.id}`)}
               key={value.id}
@@ -59,4 +54,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Recommended;
