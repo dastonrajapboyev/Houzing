@@ -60,13 +60,11 @@ Icon.Phone = styled(phone)`
     }
   `;
 Icon.Facebook = styled(facebook)`
-  
 `;
 Icon.Twitter = styled(twitter)`
-  
 `;
 Icon.Instagram = styled(instagram)`
-  
+
 `;
 Icon.In = styled(linkedin)`
   
