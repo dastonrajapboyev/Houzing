@@ -3,9 +3,8 @@
 import { Container, Content, Details, Img, Icons, Divider } from "./style";
 import noImg from "../../assets/images/noimg.png";
 
-export const HouseCard = ({ data = {}, gap, ...rest }) => {
+export const HouseCard = ({ data = {}, gap }) => {
   // console.log(data);
-  const filteredProps = { ...rest };
   const {
     attachments,
     salePrice,
@@ -21,7 +20,7 @@ export const HouseCard = ({ data = {}, gap, ...rest }) => {
   return (
     <div style={{display: 'flex'}}>
 
-    <Container gap={gap} {...filteredProps}>
+    <Container $gap={gap} >
       <Img src={(attachments && attachments[0]?.imgPath) || noImg} alt="img" />
       <Content>
         <div className="subTitle inline">

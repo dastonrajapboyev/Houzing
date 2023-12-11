@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { ReactComponent as email } from "../../assets/icons/cardEmail.svg";
-import { ReactComponent as house } from "../../assets/icons/cardHouse.svg";
-import { ReactComponent as calculator } from "../../assets/icons/cardCalculator.svg";
-import { ReactComponent as maps } from "../../assets/icons/cardMaps.svg";
+import { ReactComponent as location } from "../../assets/icons/location.svg";
+import { ReactComponent as phone } from "../../assets/icons/phone.svg";
+import { ReactComponent as email1 } from "../../assets/icons/email1.svg";
+import { ReactComponent as facebook } from "../../assets/icons/facebook.svg";
+import { ReactComponent as twitter } from "../../assets/icons/twitter.svg";
+import { ReactComponent as instagram } from "../../assets/icons/instagram.svg";
+import { ReactComponent as linkedin } from "../../assets/icons/linkedin.svg";
 const Container = styled.div`
   display: flex;
   justify-content: space-around;
@@ -42,20 +45,31 @@ Content.Item = styled.div`
   color: #fff;
 `;
 const Icon = styled.div``;
-Icon.Email = styled(email)`
-  margin-bottom: 24px;
-  & path {
-    fill: #0061df;
-  }
+Icon.Location = styled(location)`
+width: 54px;
+margin-right: 21px;
 `;
-Icon.Calculator = styled(calculator)`
-  margin-bottom: 24px;
+Icon.Phone = styled(phone)`
+  margin-right: 21px;
+  `;
+  Icon.Email1 = styled(email1)`
+  /* width: 34px; */
+    margin-right: 21px;
+    & path {
+      fill: #fff;
+    }
+  `;
+Icon.Facebook = styled(facebook)`
+  
 `;
-Icon.House = styled(house)`
-  margin-bottom: 24px;
+Icon.Twitter = styled(twitter)`
+  
 `;
-Icon.Maps = styled(maps)`
-  margin-bottom: 24px;
+Icon.Instagram = styled(instagram)`
+  
+`;
+Icon.In = styled(linkedin)`
+  
 `;
 
 export { Container, Content, Icon };
