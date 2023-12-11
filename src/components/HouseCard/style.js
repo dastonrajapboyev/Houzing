@@ -16,7 +16,6 @@ const Container = styled.div`
     return gap && `0 ${gap}px`;
   }};
   background-color: #fff;
-  /* margin: auto; */
   border-radius: 3px;
   &:hover {
     filter: drop-shadow(0px 20px 38px rgba(0, 0, 0, 0.06))

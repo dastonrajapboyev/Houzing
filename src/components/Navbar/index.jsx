@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { navbar } from "../../utils/navbar";
 import { Container, Link, Logo, Section, Wrapper, Main } from "./style";
-
+import Footer from "../Footer";
 import LogoImg from "../../assets/icons/logo.png";
 import Button from "../Generic/Button";
 import Filter from "../Filter";
@@ -39,6 +39,7 @@ export const Home = () => {
       </Main>
       <Filter />
       <Outlet />
+      <Footer />
     </Container>
   );
 };
