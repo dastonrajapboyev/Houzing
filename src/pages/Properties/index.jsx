@@ -1,4 +1,4 @@
-import Properties from "../../components/Properties"
+import Properties from "../../components/properties"
 
 
 export const PropertiesPage = () => <Properties/>
