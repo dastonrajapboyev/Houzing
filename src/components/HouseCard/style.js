@@ -8,7 +8,7 @@ import { ReactComponent as resize1 } from "../../assets/icons/resize1.svg";
 
 const Container = styled.div`
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
   min-width: 330px;
   height: 430px;
   border-radius: 3px;

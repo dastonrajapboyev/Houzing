@@ -45,6 +45,7 @@ const Recommended = () => {
               gap={10}
               data={value}
               onClick={() => navigate(`/properties?category_id=${value.id}`)}
+              // onClick={() => navigate(`/Properties?category_id=${value.id}`)}
               key={value.id}
             />
           );

@@ -36,6 +36,9 @@ const Container = styled.input`
   outline: none;
   border: 1px solid #e6e9ec;
   /* ${getType} */
+  &:focus{
+    border: 1px solid #0061df
+  }
 `;
 
 const Wrapper = styled.div`
