@@ -12,6 +12,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 1440px;
   margin: auto;
+  margin-top: 70px;
 `;
 const NoDataMessage = styled.div`
   text-align: center;

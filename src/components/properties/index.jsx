@@ -17,28 +17,34 @@ const Properties = () => {
       .then((res) => {
         setData(res?.data || []);
       });
-    request({url:`/houses/list${search}`})
+    request({ url: `/houses/list${search}` });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
   const onSelect = (id) => {
     navigate(`/properties/${id}`);
   };
   return (
-    <Container>
-      {data.map((value) => {
-        return (
-          <HouseCard
-            onClick={() => onSelect(value.id)}
-            key={value.id}
-            data={value}
-          />
-        );
-      })}
-    </Container>
+    <React.Fragment>
+      <div className="title">Properties</div>
+      <div className="info" style={{ textAlign: "center" }}>
+        Nulla quis curabitur velit volutpat auctor bibendum consectetur sit.
+      </div>
+      <Container>
+        {data.map((value) => {
+          return (
+            <HouseCard
+              onClick={() => onSelect(value.id)}
+              key={value.id}
+              data={value}
+            />
+          );
+        })}
+      </Container>
+    </React.Fragment>
   );
 };
 
 export default Properties;
-
 
 // ======================
 
@@ -58,7 +64,7 @@ export default Properties;
 //     const { REACT_APP_BASE_URL: url } = process.env;
 //     // Using the request function from the custom hook
 //     fetch(`${url}/houses/list${search}`)
-//       .then((res) =>  
+//       .then((res) =>
 //         res.json().then((res)=>{
 
 //           setData(res?.data || []);

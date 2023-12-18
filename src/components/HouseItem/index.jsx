@@ -6,23 +6,11 @@ import { useEffect, useState } from "react";
 const HouseItem = () => {
   const [data, setData] = useState({});
 
-
-
   const params = useParams()
-  // useEffect(() => {
-  //   params?.id &&  fetch(`${url}/houses/list/${params?.id}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       setData(res?.data || {});
-  //     });
-  // }, [params?.id]);
 
   useEffect(() => {
-    // request({ url: `/houses/list/${params?.id}` }).then((res) =>
-    //   setData(res?.data || [])
-    // );
-    // fetch(`https://houzing-app.herokuapp.com/api/v1/houses/id/${params?.id}`)
-    fetch(`${url}/houses/list/${params?.id}`) 
+    console.log(url);
+    fetch(`http://localhost:8081/api/v1/houses/id/${params?.id}`) 
     .then((res) => res.json())
       .then((res) => {
         setData(res?.data);
