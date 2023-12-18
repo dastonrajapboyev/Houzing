@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 const HouseItem = () => {
   const [data, setData] = useState({});
 
+
+
   const params = useParams()
   // useEffect(() => {
   //   params?.id &&  fetch(`${url}/houses/list/${params?.id}`)
