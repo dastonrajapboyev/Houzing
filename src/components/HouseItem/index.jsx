@@ -16,6 +16,7 @@ const HouseItem = () => {
         setData(res?.data);
         window.scrollTo(0, 0);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params?.id]);
 
   console.log(params);
