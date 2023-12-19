@@ -9,7 +9,7 @@ const HouseItem = () => {
   const params = useParams()
 
   useEffect(() => {
-    console.log(url);
+    console.log(url, data);
     fetch(`http://localhost:8081/api/v1/houses/id/${params?.id}`) 
     .then((res) => res.json())
       .then((res) => {
