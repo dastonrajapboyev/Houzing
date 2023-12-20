@@ -18,6 +18,7 @@ body {
 
   /* padding */
   --padding: 0 130px;
+  --width: 1440px;
 }
 
 .title {
@@ -38,7 +39,7 @@ body {
   font-weight: 600;
   line-height: 24px;
 }
-.inline{
+.inline {
   display: flex;
   overflow: hidden;
   white-space: nowrap;
@@ -53,6 +54,6 @@ body {
   /* background-color: #000 !important;
 color: #000 !important; */
 }
-.ant-select{
+.ant-select {
   height: 44px;
 }
