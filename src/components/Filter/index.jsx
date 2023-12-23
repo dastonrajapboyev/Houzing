@@ -1,30 +1,25 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Dropdown, Select, Space } from "antd";
-// import { Select, Space } from "antd";
-import {
-  Container,
-  Icons,
-  MenuWrapper,
-  Section /*
-  SelectAnt,
-  SpaceAnt,*/,
-} from "./style";
+import { Container, Icons, MenuWrapper, Section } from "./style";
 import { Input, Button } from "../Generic";
 import { uzeReplace } from "../../hooks/uzeReplace";
 import { useNavigate, useLocation } from "react-router-dom";
 import useSearch from "../../hooks/useSearch";
-const { REACT_APP_BASE_URL: url } = process.env;
+// const { REACT_APP_BASE_URL: url } = process.env;
 
 const Filter = () => {
-  // const { REACT_APP_BASE_URL: url } = process.env;
+  const { REACT_APP_BASE_URL: url } = process.env;
   const [data, setData] = useState([]);
   const [value, setValue] = useState("Select Category");
-  useEffect(() => {
-    // if(query.get('category_id')) {
-    //   let res = data.filter(ctg =>ctg.id === Number(query.get('category_id')))
-    //   setValue(res?.name)
-    // }
-  }, []);
+  // useEffect(() => {
+  //   if (query.get("category_id")) {
+  //     let res = data.filter(
+  //       (ctg) => ctg.id === Number(query.get("category_id"))
+  //     );
+  //     setValue(res?.name);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   // const [cities, setCities] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,28 +36,30 @@ const Filter = () => {
   const maxPriceRef = useRef();
   // console.log(query.get("country"), "params");
 
-  const onChange = ({ target: { name, value, placeholder } }) => {
+  const onChange = ({ target: { name, value } }) => {
     // console.log(name, value, placeholder);
     navigate(`${location?.pathname}${uzeReplace(name, value)}`);
   };
   useEffect(() => {
+    // 
     fetch(`${url}/categories/list`, {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTc5MzE4OSwiaWF0IjoxNzAxNzkzMTg5LCJzY29wZSI6IlJPTEVfVVNFUiJ9.jcvHLF4KPgPtBb8xXFkp3GYwetr_x_388j2cH8MaeQG8PInrKSNfFm0fwNTZbASxeMSP4IO8aRT2g4f7vk-6ygKIPEBCEy75947Kr6eH0uAE_HOTbPed0gWvvEHrv3ISarBUnNkebiSCaHdo8f52F1EQFAtxRM3jxzSeKhKQqryrZwdZdIMhXC77yLYxUOepciju3V8jrwHNnDnT2sTULICPPg3gxzTLOsmgn7rVEF71A95qOMFPDwOuvRiETrm07EDP2c78T6h7fF3h5k_24J_IOYKeN-s8HB5c8_8zKrR4na_d-zSlA8hnIQ0DQKfuitffZnEHEsZU_VCFEsudGw",
-      },
-    })
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiMTc2NHJhamFib3Z2QGdtYWlsLmNvbSIsImV4cCI6MTcxOTc5MzE4OSwiaWF0IjoxNzAxNzkzMTg5LCJzY29wZSI6IlJPTEVfVVNFUiJ9.jcvHLF4KPgPtBb8xXFkp3GYwetr_x_388j2cH8MaeQG8PInrKSNfFm0fwNTZbASxeMSP4IO8aRT2g4f7vk-6ygKIPEBCEy75947Kr6eH0uAE_HOTbPed0gWvvEHrv3ISarBUnNkebiSCaHdo8f52F1EQFAtxRM3jxzSeKhKQqryrZwdZdIMhXC77yLYxUOepciju3V8jrwHNnDnT2sTULICPPg3gxzTLOsmgn7rVEF71A95qOMFPDwOuvRiETrm07EDP2c78T6h7fF3h5k_24J_IOYKeN-s8HB5c8_8zKrR4na_d-zSlA8hnIQ0DQKfuitffZnEHEsZU_VCFEsudGw",
+        },
+      })
       .then((res) => res.json())
       .then((res) => {
         setData(res?.data || []);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     let [d] = data?.filter(
       (ctg) => ctg.id === Number(query.get("category_id"))
     );
     d?.name && setValue(d?.name);
-    !query.get("category_id") && setValue("Select Category")
+    !query.get("category_id") && setValue("Select Category");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.search, data]);
 
@@ -111,7 +108,12 @@ const Filter = () => {
           </Section>
           <h1 className="subtitle">Apartment info</h1>
           <Section>
-            <Input name='room' onChange={onChange} ref={roomsRef} placeholder="Rooms" />
+            <Input
+              name="room"
+              onChange={onChange}
+              ref={roomsRef}
+              placeholder="Rooms"
+            />
             <Space>
               <Select
                 style={{
@@ -135,7 +137,7 @@ const Filter = () => {
                 {data.map((value) => {
                   return (
                     <Select.Option value={value?.id} key={value.id}>
-                      {value.name}
+                      {value?.name}
                     </Select.Option>
                   );
                 })}
@@ -144,8 +146,18 @@ const Filter = () => {
           </Section>
           <h1 className="subtitle">Price</h1>
           <Section>
-            <Input onChange={onChange} name='min_price' ref={minPriceRef} placeholder="Min Price" />
-            <Input onChange={onChange} name='max_price' ref={maxPriceRef} placeholder="Max Price" />
+            <Input
+              onChange={onChange}
+              name="min_price"
+              ref={minPriceRef}
+              placeholder="Min Price"
+            />
+            <Input
+              onChange={onChange}
+              name="max_price"
+              ref={maxPriceRef}
+              placeholder="Max Price"
+            />
           </Section>
         </MenuWrapper>
       ),
