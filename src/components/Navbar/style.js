@@ -46,5 +46,26 @@ const Link = styled(NavLink)`
   padding: 0 32px;
   color: #ffff;
 `;
+const Menu = styled.div`
+width: 177px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 16px;
+  gap: 16px;
+  border-radius: 5px;
+  box-shadow: 0px 20px 38px rgba(0, 0, 0, 0.06),
+    0px 7px 46px rgba(0, 0, 0, 0.06), 0px 8px 15px rgba(0, 0, 0, 0.06);
+    
+`;
 
-export { Container, Wrapper, Section, Logo, Link, Main };
+Menu.Item = styled.div`
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  color: #000000;
+`;
+export { Container, Menu, Wrapper, Section, Logo, Link, Main };
