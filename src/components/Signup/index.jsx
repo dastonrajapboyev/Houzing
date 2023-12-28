@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { message } from "antd";
 
-const Signin = () => {
+const Signup = () => {
   const request = useRequest();
   const [body, setBody] = useState({});
   const navigate = useNavigate();
@@ -24,23 +24,22 @@ const Signin = () => {
 
   const onSubmit = () => {
     request({
-      url: `/public/auth/login`,
+      url: `/public/auth/register`,
       method: "POST",
       body,
       me: true,
     }).then((res) => {
-      if (res?.authenticationToken) {
-        navigate("/home");
-        localStorage.setItem("token", res?.authenticationToken);
-      }
+      navigate("/signin");
       info();
     });
   };
 
   return (
     <Content>
-      <div className="subTitle">Sign In</div>
+      <div className="subTitle">Sign Up</div>
       <Input onChange={onChanged} placeholder="email" type="email" />
+      <Input onChange={onChanged} placeholder="firstname" type="text" />
+      <Input onChange={onChanged} placeholder="lastname" type="text" />
       <Input onChange={onChanged} placeholder="password" type="password" />
       <Button onClick={onSubmit} width={"%"}>
         Login
@@ -49,4 +48,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;

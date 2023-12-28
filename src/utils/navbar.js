@@ -1,6 +1,6 @@
 import React from "react";
 import useId from "../hooks/useId";
-import Signin from "../pages/Signin"
+import Signin from "../pages/Register"
 import Favourite from "../pages/Favourite"
 // import HomePage from "../pages/Home";
 // import Properties from "../pages/Properties";

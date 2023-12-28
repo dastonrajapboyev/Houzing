@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 
-
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,4 +15,4 @@ const Content = styled.div`
   box-shadow: 0px 10px 30px 0px rgba(13, 38, 59, 0.05);
 `;
 
-export { Content };
+export { Content};
