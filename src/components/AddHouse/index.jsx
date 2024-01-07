@@ -2,63 +2,62 @@ import React, { useEffect, useState } from "react";
 import { IconDelete, MenuWrapper, Section, Wrapper } from "./style";
 import { Select, Space, Checkbox } from "antd";
 import Input from "../Generic/Input";
-// import useRequest from "../../hooks/useRequest";
+import useRequest from "../../hooks/useRequest";
+
+
+
+
+import {/* useNavigate, */useParams} from "react-router-dom";
+
+
+
+
+
 import { useFormik } from "formik";
 import Button from "../Generic/Button";
 import TextArea from "antd/es/input/TextArea";
 
 const { REACT_APP_BASE_URL: url } = process.env;
 const AddNewHouse = () => {
-
-  const [data, setData] = useState([]);
+  const [, setData] = useState([]);
   const [imgs, setImgs] = useState([]);
+  const [category, setCategory] = useState([]);
   const [img, setImg] = useState("");
-  // const request = useRequest();
+  const request = useRequest();
+  // const navigate = useNavigate();
+  const { id } = useParams();
 
-  // useEffect(() => {
-  //   fetch(`${url}/houses/me`, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     },
-  //   })
-  //     .then((res) => console.log(res))
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       const updatedData = res?.data.map((item, index) => ({
-  //         ...item,
-  //         key: index,
-  //       }));
-  //       setData(updatedData || []);
-  //     });
-  //   request({ url: `/houses/me` });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  // category
+  useEffect(() => {
+    // request({ url: `/categories/list` })
+    //   .then((res) => console.log(res))
+    //   .then((res) => setCategory(res?.data || []));
+    async function fetchData() {
+      try {
+        const response = await fetch(`${url}/categories/list`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
-  // useEffect(() => {
-  //   return fetch(`${url}/houses/me`, {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       const updatedData = data?.data.map((item, index) => ({
-  //         ...item,
-  //         key: index,
-  //       }));
-  //       setData(updatedData || []);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching data:', error);
-  //       // Handle errors appropriately, e.g., display an error message
-  //     });
-  // }, []);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
 
+        const data = await response.json();
+        const updatedData = data?.data.map((item, index) => ({
+          ...item,
+          key: index,
+        }));
+        setCategory(updatedData || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -67,11 +66,11 @@ const AddNewHouse = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-  
+
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
-  
+
         const data = await response.json();
         const updatedData = data?.data.map((item, index) => ({
           ...item,
@@ -79,19 +78,15 @@ const AddNewHouse = () => {
         }));
         setData(updatedData || []);
       } catch (error) {
-        console.error('Error fetching data:', error);
-        // Handle errors appropriately, e.g., display an error message
+        console.error("Error fetching data:", error);
       }
     }
-  
-    fetchData(); // Call the async function immediately
+
+    fetchData();
   }, []);
 
-  const onChangeCategory = (category_id) => {
-    // navigate(`/properties/${uzeReplace("category_id", category_id)}`);
-  };
-
   const formik = useFormik({
+    //  this way is same as written in the video lesson but but not working nowadays
     // initialValues: {
     //   houseDetails: {},
     //   homeAmenitiesDto: {},
@@ -115,7 +110,7 @@ const AddNewHouse = () => {
       name: "",
       zipCode: "",
       price: "",
-      sale_price: "",
+      salePrice: "",
       description: "",
       houseDetails: {
         tv: false,
@@ -140,22 +135,38 @@ const AddNewHouse = () => {
       },
     },
     onSubmit: (values) => {
-      console.log(values, imgs);
+      // console.log({ ...values, attachments: imgs });
+      request({
+        url: id ? `/houses/${id}` : `/houses`,
+        method: id ? "PUT" : "POST",
+        token: true,
+        body: {
+          ...values,
+          categoryId: 1,
+          name: "webbriain",
+          attachments: imgs,
+        },
+      })
+
     },
+
+    // =================
+    
   });
 
   const addImg = () => {
     if (!(imgs.length >= 4) && img) {
       setImgs([
         ...imgs,
-        { title: img, id: `${img.length * Math.random()}${img}$` },
+        { imgPath: img, id: `${img.length * Math.random()}${img}$` },
       ]);
       setImg("");
     }
   };
 
   return (
-    <Wrapper>
+    <Wrapper> 
+      {/* {data} */}
       <form onSubmit={formik.handleSubmit}>
         <MenuWrapper>
           <h1 className="subtitle">Address</h1>
@@ -188,38 +199,43 @@ const AddNewHouse = () => {
           <h1 className="subtitle">Apartment info</h1>
           <Section>
             <Input
-              name="room"
-              value={formik.values.room}
+              type="number"
+              name="houseDetails.room"
+              value={formik.values.houseDetails?.room}
               onChange={formik.handleChange}
               placeholder="Rooms"
             />
             <Input
-              name="area"
-              value={formik.values.area}
+              type="number"
+              name="houseDetails.area"
+              value={formik.values.houseDetails?.area}
               onChange={formik.handleChange}
               placeholder="area"
             />
             <Input
-              name="bath"
-              value={formik.values.bath}
+              type="number"
+              name="houseDetails.bath"
+              value={formik.values.houseDetails?.bath}
               onChange={formik.handleChange}
               placeholder="bath"
             />
             <Input
-              name="beds"
-              value={formik.values.beds}
+              type="number"
+              name="houseDetails.beds"
+              value={formik.values.houseDetails?.beds}
               onChange={formik.handleChange}
               placeholder="beds"
             />
             <Input
-              name="garage"
-              value={formik.values.garage}
+              type="number"
+              name="houseDetails.garage"
+              value={formik.values.houseDetails?.garage}
               onChange={formik.handleChange}
               placeholder="garage"
             />
             <Input
-              value={formik.values.yearBuilt}
-              name="yearBuilt"
+              value={formik.values.houseDetails?.yearBuilt}
+              name="houseDetails.yearBuilt"
               onChange={formik.handleChange}
               placeholder="yearBuilt"
             />
@@ -229,18 +245,34 @@ const AddNewHouse = () => {
                   width: 200,
                 }}
                 defaultValue={"Select Category"}
-                onChange={onChangeCategory}>
-                {/* value={value} */}
+                value={formik.values.categoryId}
+                onChange={(value) => formik.setFieldValue("categoryId", value)}>
                 <Select.Option value={""}>Select Category</Select.Option>
-                {data.map((value) => {
+                {category.map((value) => (
+                  <Select.Option value={value?.id} key={value.id}>
+                    {value?.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Space>
+            {/* <Space>
+              <Select
+                style={{
+                  width: 200,
+                }}
+                defaultValue={"Select Category"}
+                onChange={formik.handleChange}>
+                value={formik.values.categoryId}
+                <Select.Option value={""}>Select Category</Select.Option>
+                {category.map((value) => {
                   return (
-                    <Select.Option value={value?.id} key={value.id}>
+                    <Select.Option onChange={formik.handleChange} value={value?.id} key={value.id}>
                       {value?.name}
                     </Select.Option>
                   );
                 })}
               </Select>
-            </Space>
+            </Space> */}
           </Section>
           <h1 className="subtitle">Price</h1>
           <Section>
@@ -264,8 +296,8 @@ const AddNewHouse = () => {
             />
             <Input
               onChange={formik.handleChange}
-              value={formik.values.sale_price}
-              name="sale_price"
+              value={formik.values.salePrice}
+              name="salePrice"
               placeholder="Sale Price"
             />
           </Section>
@@ -282,7 +314,7 @@ const AddNewHouse = () => {
           <Section $flex>
             {imgs.map((value) => (
               <div key={value.id}>
-                <p>{value.title}</p>
+                <p>{value?.imgPath}</p>
                 <IconDelete
                   onClick={() => {
                     let res = imgs.filter((vl) => vl.id !== value.id);
@@ -291,7 +323,7 @@ const AddNewHouse = () => {
                 />
               </div>
             ))}
-          </Section>  
+          </Section>
           <Section>
             <TextArea
               onChange={formik.handleChange}
@@ -311,7 +343,8 @@ const AddNewHouse = () => {
               </Checkbox>
               <Checkbox
                 onChange={formik.handleChange}
-                name="homeAmenitiesDto.garden">
+                // name="homeAmenitiesDto.garden">
+                   name="homeAmenitiesDto.garden">
                 Garden
               </Checkbox>
               <Checkbox
@@ -338,7 +371,7 @@ const AddNewHouse = () => {
               </Checkbox>
               <Checkbox
                 onChange={formik.handleChange}
-                name="homeAmenitiesDto.statium">
+                name="homeAmenitiesDto.stadium">
                 Statium
               </Checkbox>
               <Checkbox
@@ -351,32 +384,32 @@ const AddNewHouse = () => {
                 name="homeAmenitiesDto.superMarket">
                 Super Market
               </Checkbox>
-              <Checkbox onChange={formik.handleChange} name="houseDetails.tv">
+              <Checkbox onChange={formik.handleChange} name="componentsDto.tv">
                 TV
               </Checkbox>
             </Section>
             <Section $flex>
               <Checkbox
                 onChange={formik.handleChange}
-                name="houseDetails.airCondition">
+                name="componentsDto.airCondition">
                 Air Condition
               </Checkbox>
               <Checkbox
                 onChange={formik.handleChange}
-                name="houseDetails.courtyard">
+                name="componentsDto.courtyard">
                 Courtyard
               </Checkbox>
               <Checkbox
                 onChange={formik.handleChange}
-                name="houseDetails.furniture">
+                name="componentsDto.furniture">
                 Furniture
               </Checkbox>
-              <Checkbox onChange={formik.handleChange} name="houseDetails.gas">
+              <Checkbox onChange={formik.handleChange} name="componentsDto.gasStove">
                 Gas Stove
               </Checkbox>
               <Checkbox
                 onChange={formik.handleChange}
-                name="houseDetails.internet">
+                name="componentsDto.internet">
                 Internet
               </Checkbox>
             </Section>
