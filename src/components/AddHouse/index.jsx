@@ -4,14 +4,7 @@ import { Select, Space, Checkbox } from "antd";
 import Input from "../Generic/Input";
 import useRequest from "../../hooks/useRequest";
 
-
-
-
-import {/* useNavigate, */useParams} from "react-router-dom";
-
-
-
-
+import {  useNavigate,  useParams } from "react-router-dom";
 
 import { useFormik } from "formik";
 import Button from "../Generic/Button";
@@ -24,14 +17,12 @@ const AddNewHouse = () => {
   const [category, setCategory] = useState([]);
   const [img, setImg] = useState("");
   const request = useRequest();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
+
 
   // category
   useEffect(() => {
-    // request({ url: `/categories/list` })
-    //   .then((res) => console.log(res))
-    //   .then((res) => setCategory(res?.data || []));
     async function fetchData() {
       try {
         const response = await fetch(`${url}/categories/list`, {
@@ -82,76 +73,77 @@ const AddNewHouse = () => {
       }
     }
 
-    fetchData();
+    fetchData().then((res)=> console.log(res));
   }, []);
 
   const formik = useFormik({
-    //  this way is same as written in the video lesson but but not working nowadays
-    // initialValues: {
-    //   houseDetails: {},
-    //   homeAmenitiesDto: {},
-    // },
-    // onSubmit: (values) => {
-    //   console.log(values, imgs);
-    // },
-    // +++++++++++++++++++++++++
-
     initialValues: {
+      address: "",
+      attachments: [
+        {
+          imgPath: "string",
+        },
+      ],
       country: "",
       region: "",
       city: "",
-      address: "",
-      room: "",
-      area: "",
-      bath: "",
-      beds: "",
-      garage: "",
-      yearBuilt: "",
+      componentsDto: {
+        additional: "string",
+        airCondition: false,
+        courtyard: false,
+        furniture: false,
+        gasStove: false,
+        internet: false,
+        tv: false,
+      },
+      houseDetails: {
+        area: "",
+        bath: "",
+        beds: "",
+        garage: "",
+        room: "",
+        yearBuilt: "",
+      },
       name: "",
       zipCode: "",
       price: "",
       salePrice: "",
       description: "",
-      houseDetails: {
-        tv: false,
-        airCondition: false,
-        courtyard: false,
-        furniture: false,
-        gas: false,
-        internet: false,
-        // Add other houseDetails fields with their initial values
+
+      locations: {
+        latitude: 0,
+        longitude: 0,
       },
       homeAmenitiesDto: {
+        additional: "string",
         busStop: false,
         garden: false,
         market: false,
         park: false,
         parking: false,
         school: false,
-        statium: false,
+        stadium: false,
         subway: false,
         superMarket: false,
         // Add other homeAmenitiesDto fields with their initial values
       },
     },
     onSubmit: (values) => {
-      // console.log({ ...values, attachments: imgs });
+      console.log({ ...values, attachments: imgs });
       request({
         url: id ? `/houses/${id}` : `/houses`,
         method: id ? "PUT" : "POST",
         token: true,
         body: {
           ...values,
-          categoryId: 1,
-          name: "webbriain",
           attachments: imgs,
         },
-      })
-
+      }).then((res) => {
+        if (res?.success) navigate("/myprofile");
+      });
     },
 
     // =================
-    
   });
 
   const addImg = () => {
@@ -165,8 +157,7 @@ const AddNewHouse = () => {
   };
 
   return (
-    <Wrapper> 
-      {/* {data} */}
+    <Wrapper>
       <form onSubmit={formik.handleSubmit}>
         <MenuWrapper>
           <h1 className="subtitle">Address</h1>
@@ -344,7 +335,7 @@ const AddNewHouse = () => {
               <Checkbox
                 onChange={formik.handleChange}
                 // name="homeAmenitiesDto.garden">
-                   name="homeAmenitiesDto.garden">
+                name="homeAmenitiesDto.garden">
                 Garden
               </Checkbox>
               <Checkbox
@@ -404,7 +395,9 @@ const AddNewHouse = () => {
                 name="componentsDto.furniture">
                 Furniture
               </Checkbox>
-              <Checkbox onChange={formik.handleChange} name="componentsDto.gasStove">
+              <Checkbox
+                onChange={formik.handleChange}
+                name="componentsDto.gasStove">
                 Gas Stove
               </Checkbox>
               <Checkbox

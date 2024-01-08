@@ -4,29 +4,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 // import { Col } from "antd";
 import Button from "../Generic/Button";
 import nouser from "../../assets/images/no-user-image.gif";
-
+// import { useQuery } from "react-query";
+// import { message } from "antd";
 // import useRequest from "../../hooks/useRequest";
 const MyProfile = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const request = useNavigate();
   const { search } = useLocation();
-  // <<<<<<< HEAD
-  // useEffect(() => {
-  //   const { REACT_APP_BASE_URL: url } = process.env;
-  //   fetch(`${url}/houses/me}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       setData(res?.data || []);
-  //     });
-  //   request({ url: `/houses/me`});
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
-  // ==============================
-
-  // ==============================
-  // console.log(res);
+  
+  
 
   useEffect(() => {
     const { REACT_APP_BASE_URL: url } = process.env;
@@ -36,10 +24,8 @@ const MyProfile = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-      // .then((res) => console.log(res)) // Add this line
       .then((res) => res.json())
       .then((res) => {
-        // Add a unique 'key' property to each object in the 'data' array
         const updatedData = res?.data.map((item, index) => ({
           ...item,
           key: index,
@@ -49,8 +35,25 @@ const MyProfile = () => {
     request({ url: `/houses/me` });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
-  // console.log(data);
+  
 
+  // const { data, refetch } = useQuery([search], () => {
+  //   return request({ url: `/houses/me`, token: true });
+  // });
+const onDelete = ()=>{
+
+}
+
+  // const onDelete = (id) => {
+  //   request({ url: `/houses/${id}`, token: true, method: "DELETE" }).then(
+  //     (res) => {
+  //       if (res?.success) {
+  //         message.info("Successfully deleted");
+  //         refetch();
+  //       }
+  //     }
+  //   );
+  // };
   const columns = [
     {
       title: "Listing Title",
@@ -102,12 +105,13 @@ const MyProfile = () => {
         return (
           <User>
             <Icons.Edit />
-            <Icons.Delete />
+            <Icons.Delete onClick={onDelete} />
           </User>
         );
       },
     },
   ];
+
   return (
     <Wrapper>
       <User>
