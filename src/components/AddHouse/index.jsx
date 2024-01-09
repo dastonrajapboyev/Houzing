@@ -136,10 +136,14 @@ const AddNewHouse = () => {
         token: true,
         body: {
           ...values,
+          name: "Dostondev",
           attachments: imgs,
         },
-      }).then((res) => {
-        if (res?.success) navigate("/myprofile");
+      })
+      .then((res) => {
+        if (res?.success) {
+          navigate("/myprofile"); 
+        }
       });
     },
 

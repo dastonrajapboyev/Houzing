@@ -1,59 +1,30 @@
-import React, { useEffect, useState } from "react";
 import { AntTable, Container, Icons, User, Wrapper } from "./style";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { Col } from "antd";
 import Button from "../Generic/Button";
 import nouser from "../../assets/images/no-user-image.gif";
-// import { useQuery } from "react-query";
-// import { message } from "antd";
-// import useRequest from "../../hooks/useRequest";
+import { useQuery } from "react-query";
+import { message } from "antd";
+import useRequest from "../../hooks/useRequest";
 const MyProfile = () => {
-  const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const request = useNavigate();
+  const request = useRequest();
   const { search } = useLocation();
 
-  
-  
+  const { data, refetch } = useQuery([search], () => {
+    return request({ url: `/houses/me`, token: true });
+  });
 
-  useEffect(() => {
-    const { REACT_APP_BASE_URL: url } = process.env;
-    fetch(`${url}/houses/me`,
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const updatedData = res?.data.map((item, index) => ({
-          ...item,
-          key: index,
-        }));
-        setData(updatedData || []);
-      });
-    request({ url: `/houses/me` });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
-  
+  const onDelete = (id) => {
+    request({ url: `/houses/${id}`, token: true, method: "DELETE" }).then(
+      (res) => {
+        if (res?.success) {
+          message.info("Successfully deleted");
+          refetch();
+        }
+      }
+    );
+  };
 
-  // const { data, refetch } = useQuery([search], () => {
-  //   return request({ url: `/houses/me`, token: true });
-  // });
-const onDelete = ()=>{
-
-}
-
-  // const onDelete = (id) => {
-  //   request({ url: `/houses/${id}`, token: true, method: "DELETE" }).then(
-  //     (res) => {
-  //       if (res?.success) {
-  //         message.info("Successfully deleted");
-  //         refetch();
-  //       }
-  //     }
-  //   );
-  // };
   const columns = [
     {
       title: "Listing Title",
@@ -105,13 +76,12 @@ const onDelete = ()=>{
         return (
           <User>
             <Icons.Edit />
-            <Icons.Delete onClick={onDelete} />
+            <Icons.Delete onClick={() => onDelete(data.id)} />
           </User>
         );
       },
     },
   ];
-
   return (
     <Wrapper>
       <User>
@@ -125,7 +95,13 @@ const onDelete = ()=>{
         </div>
       </User>
       <Container>
-        <AntTable dataSource={data} columns={columns} />
+        <AntTable
+          dataSource={data?.data.map((item) => ({
+            ...item,
+            key: item.id,
+          }))}
+          columns={columns}
+        />
       </Container>
     </Wrapper>
   );
