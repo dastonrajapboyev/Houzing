@@ -33,12 +33,22 @@ Icons.Edit = styled(edit)`
   height: 16px;
   margin: 16px;
   cursor: pointer;
+  &:hover{
+    & path{
+      fill: blue;
+    }
+  }
 `;
 Icons.Delete = styled(del)`
   width: 16px;
   height: 16px;
   margin: 16px;
   cursor: pointer;
+  &:hover{
+    & path{
+      fill: red;
+    }
+  }
 `;
 const User = styled.div`
 display: flex;

@@ -4,7 +4,7 @@ import { Select, Space, Checkbox } from "antd";
 import Input from "../Generic/Input";
 import useRequest from "../../hooks/useRequest";
 
-import {  useNavigate,  useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useFormik } from "formik";
 import Button from "../Generic/Button";
@@ -15,12 +15,45 @@ const AddNewHouse = () => {
   const [, setData] = useState([]);
   const [imgs, setImgs] = useState([]);
   const [category, setCategory] = useState([]);
+  const [initial, setInitial] = useState({});
   const [img, setImg] = useState("");
   const request = useRequest();
   const navigate = useNavigate();
   const { id } = useParams();
 
+  // single house
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response =
+          id &&
+          (await fetch(`${url}/houses/id/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }));
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        // Handle the object structure
+        console.log(data?.data);
+        const updatedData = Object.keys(data?.data).map((key) => ({
+          ...data?.data[key],
+          key: key,
+        }));
+        setInitial(updatedData || {});
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // category
   useEffect(() => {
     async function fetchData() {
@@ -73,7 +106,7 @@ const AddNewHouse = () => {
       }
     }
 
-    fetchData().then((res)=> console.log(res));
+    fetchData().then((res) => console.log(res));
   }, []);
 
   const formik = useFormik({
@@ -127,6 +160,7 @@ const AddNewHouse = () => {
         superMarket: false,
         // Add other homeAmenitiesDto fields with their initial values
       },
+      ...initial,
     },
     onSubmit: (values) => {
       console.log({ ...values, attachments: imgs });
@@ -139,10 +173,10 @@ const AddNewHouse = () => {
           name: "Dostondev",
           attachments: imgs,
         },
-      })
-      .then((res) => {
+      }).then((res) => {
+        console.log(res, "save");
         if (res?.success) {
-          navigate("/myprofile"); 
+          navigate("/myprofile");
         }
       });
     },
@@ -159,7 +193,6 @@ const AddNewHouse = () => {
       setImg("");
     }
   };
-
   return (
     <Wrapper>
       <form onSubmit={formik.handleSubmit}>

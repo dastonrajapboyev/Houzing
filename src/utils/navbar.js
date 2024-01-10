@@ -83,6 +83,14 @@ export const navbar = [
   },
   {
     id: useId,
+    element: <AddNewHouse/>,
+    title: "Add New House",
+    path: "/myprofile/edithouse/:id",
+    private: true,
+    hidden: true,
+  },
+  {
+    id: useId,
     element: <h1>generic sign up</h1>,
     title: "Sign up",
     path: "/signup",

@@ -75,7 +75,7 @@ const MyProfile = () => {
       render: (data) => {
         return (
           <User>
-            <Icons.Edit />
+            <Icons.Edit onClick={()=> navigate(`/myprofile/edithouse/${data.id}`)}/>
             <Icons.Delete onClick={() => onDelete(data.id)} />
           </User>
         );
