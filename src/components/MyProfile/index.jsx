@@ -75,8 +75,21 @@ const MyProfile = () => {
       render: (data) => {
         return (
           <User>
-            <Icons.Edit onClick={()=> navigate(`/myprofile/edithouse/${data.id}`)}/>
-            <Icons.Delete onClick={() => onDelete(data.id)} />
+            {/* <Icons.Edit onClick={()=> navigate(`/myprofile/edithouse/${data.id}`)}/>
+            <Icons.Delete onClick={() => onDelete(data.id)} /> */}
+
+            <Icons.Edit
+              onClick={(event) => {
+                event.stopPropagation();
+                navigate(`/myprofile/edithouse/${data?.id}`);
+              }}
+            />
+            <Icons.Delete
+              onClick={(event) => {
+                event.stopPropagation();
+                onDelete(data?.id);
+              }}
+            />
           </User>
         );
       },
@@ -96,6 +109,13 @@ const MyProfile = () => {
       </User>
       <Container>
         <AntTable
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: () => {
+                navigate(`/properties/${record?.id}`);
+              }, // click row
+            };
+          }}
           dataSource={data?.data.map((item) => ({
             ...item,
             key: item.id,

@@ -10,7 +10,7 @@ import useSearch from "../../hooks/useSearch";
 const Filter = () => {
   const { REACT_APP_BASE_URL: url } = process.env;
   const [data, setData] = useState([]);
-  const [value, setValue] = useState("Select Category");
+  const [value, setValue] = useState("");
   // useEffect(() => {
   //   if (query.get("category_id")) {
   //     let res = data.filter(
@@ -37,7 +37,6 @@ const Filter = () => {
   // console.log(query.get("country"), "params");
 
   const onChange = ({ target: { name, value } }) => {
-    // console.log(name, value, placeholder);
     navigate(`${location?.pathname}${uzeReplace(name, value)}`);
   };
   useEffect(() => {
@@ -63,12 +62,20 @@ const Filter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.search, data]);
 
+
+
   const onChangeCategory = (category_id) => {
+    setValue(category_id);
     navigate(`/properties/${uzeReplace("category_id", category_id)}`);
   };
+
+
+
   const onChangeSort = (sort) => {
     navigate(`/properties${uzeReplace("sort", sort)}`);
   };
+
+
 
   const items = [
     {
@@ -121,7 +128,6 @@ const Filter = () => {
                 }}
                 defaultValue={query.get("sort") || "Select Sort"}
                 onChange={onChangeSort}>
-                {/* value={value} */}
                 <Select.Option value={""}>Select Sort</Select.Option>
                 <Select.Option value={"asc"}>O'suvchi</Select.Option>
                 <Select.Option value={"desc"}>kamayuvchi</Select.Option>
@@ -130,14 +136,13 @@ const Filter = () => {
                 style={{
                   width: 200,
                 }}
-                defaultValue={value}
-                onChange={onChangeCategory}>
                 value={value}
+                onChange={onChangeCategory}>
                 <Select.Option value={""}>Select Category</Select.Option>
-                {data.map((value) => {
+                {data.map((category) => {
                   return (
-                    <Select.Option value={value?.id} key={value.id}>
-                      {value?.name}
+                    <Select.Option key={category.id} value={category?.id} >
+                      {category?.name}
                     </Select.Option>
                   );
                 })}
@@ -165,7 +170,6 @@ const Filter = () => {
     },
   ];
 
-  // console.log(uzeReplace("address", "toshkent"));
 
   return (
     <Container>

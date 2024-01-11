@@ -15,7 +15,17 @@ const AddNewHouse = () => {
   const [, setData] = useState([]);
   const [imgs, setImgs] = useState([]);
   const [category, setCategory] = useState([]);
-  const [initial, setInitial] = useState({});
+  const [initial, setInitial] = useState({
+    houseDetails: {},
+    homeAmenitiesDto: {},
+    componentsDto: {},
+    status: true,
+
+    locations: {
+      latitude: 0,
+      longitude: 0,
+    },
+  });
   const [img, setImg] = useState("");
   const request = useRequest();
   const navigate = useNavigate();
@@ -24,36 +34,45 @@ const AddNewHouse = () => {
   // single house
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response =
-          id &&
-          (await fetch(`${url}/houses/id/${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }));
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-        // Handle the object structure
-        console.log(data?.data);
-        const updatedData = Object.keys(data?.data).map((key) => ({
-          ...data?.data[key],
-          key: key,
-        }));
-        setInitial(updatedData || {});
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
+    id &&
+      request({ url: `/houses/id/${id}`, token: true }).then((res) => {
+        setImgs(res?.data?.attachments);
+        setInitial({ ...res?.data });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response =
+  //         id &&
+  //         (await fetch(`${url}/houses/id/${id}`, {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //           },
+  //         }));
+
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+
+  //       const data = await response.json();
+  //       // Handle the object structure
+  //       console.log(data?.data);
+  //       const updatedData = Object.keys(data?.data).map((key) => ({
+  //         ...data?.data[key],
+  //         key: key,
+  //       }));
+  //       setInitial(updatedData || {});
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   fetchData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   // category
   useEffect(() => {
     async function fetchData() {
@@ -106,62 +125,66 @@ const AddNewHouse = () => {
       }
     }
 
-    fetchData().then((res) => console.log(res));
+    fetchData();
   }, []);
 
   const formik = useFormik({
-    initialValues: {
-      address: "",
-      attachments: [
-        {
-          imgPath: "string",
-        },
-      ],
-      country: "",
-      region: "",
-      city: "",
-      componentsDto: {
-        additional: "string",
-        airCondition: false,
-        courtyard: false,
-        furniture: false,
-        gasStove: false,
-        internet: false,
-        tv: false,
-      },
-      houseDetails: {
-        area: "",
-        bath: "",
-        beds: "",
-        garage: "",
-        room: "",
-        yearBuilt: "",
-      },
-      name: "",
-      zipCode: "",
-      price: "",
-      salePrice: "",
-      description: "",
+    initialValues: initial,
 
-      locations: {
-        latitude: 0,
-        longitude: 0,
-      },
-      homeAmenitiesDto: {
-        additional: "string",
-        busStop: false,
-        garden: false,
-        market: false,
-        park: false,
-        parking: false,
-        school: false,
-        stadium: false,
-        subway: false,
-        superMarket: false,
-        // Add other homeAmenitiesDto fields with their initial values
-      },
-      ...initial,
-    },
+    enableReinitialize: true,
+
+    // initialValues: {
+    //   address: "",
+    //   attachments: [
+    //     {
+    //       imgPath: "string",
+    //     },
+    //   ],
+    //   country: "",
+    //   region: "",
+    //   city: "",
+    //   componentsDto: {
+    //     additional: "string",
+    //     airCondition: false,
+    //     courtyard: false,
+    //     furniture: false,
+    //     gasStove: false,
+    //     internet: false,
+    //     tv: false,
+    //   },
+    //   houseDetails: {
+    //     area: "",
+    //     bath: "",
+    //     beds: "",
+    //     garage: "",
+    //     room: "",
+    //     yearBuilt: "",
+    //   },
+    //   name: "",
+    //   zipCode: "",
+    //   price: "",
+    //   salePrice: "",
+    //   description: "",
+
+    //   locations: {
+    //     latitude: 0,
+    //     longitude: 0,
+    //   },
+    //   homeAmenitiesDto: {
+    //     additional: "string",
+    //     busStop: false,
+    //     garden: false,
+    //     market: false,
+    //     park: false,
+    //     parking: false,
+    //     school: false,
+    //     stadium: false,
+    //     subway: false,
+    //     superMarket: false,
+    //     // Add other homeAmenitiesDto fields with their initial values
+    //   },
+    // },
+
     onSubmit: (values) => {
       console.log({ ...values, attachments: imgs });
       request({
@@ -170,11 +193,11 @@ const AddNewHouse = () => {
         token: true,
         body: {
           ...values,
-          name: "Dostondev",
+          categoryId: 1,
+          // name: "webbriain",
           attachments: imgs,
         },
       }).then((res) => {
-        console.log(res, "save");
         if (res?.success) {
           navigate("/myprofile");
         }
@@ -193,6 +216,8 @@ const AddNewHouse = () => {
       setImg("");
     }
   };
+
+  console.log(initial, "rrrrres");
   return (
     <Wrapper>
       <form onSubmit={formik.handleSubmit}>
@@ -283,24 +308,6 @@ const AddNewHouse = () => {
                 ))}
               </Select>
             </Space>
-            {/* <Space>
-              <Select
-                style={{
-                  width: 200,
-                }}
-                defaultValue={"Select Category"}
-                onChange={formik.handleChange}>
-                value={formik.values.categoryId}
-                <Select.Option value={""}>Select Category</Select.Option>
-                {category.map((value) => {
-                  return (
-                    <Select.Option onChange={formik.handleChange} value={value?.id} key={value.id}>
-                      {value?.name}
-                    </Select.Option>
-                  );
-                })}
-              </Select>
-            </Space> */}
           </Section>
           <h1 className="subtitle">Price</h1>
           <Section>
@@ -335,17 +342,17 @@ const AddNewHouse = () => {
               onChange={({ target: { value } }) => setImg(value)}
               placeholder="Add Image URL"
             />{" "}
-            <Button onClick={addImg} $disabled={imgs.length <= 4}>
+            <Button type={"button"} onClick={addImg} $disabled={imgs.length <= 4}>
               Add Image URL
             </Button>
           </Section>
           <Section $flex>
-            {imgs.map((value) => (
-              <div key={value.id}>
+            {imgs.map((value, index) => (
+              <div key={index}>
                 <p>{value?.imgPath}</p>
                 <IconDelete
                   onClick={() => {
-                    let res = imgs.filter((vl) => vl.id !== value.id);
+                    let res = imgs.filter((vl, idx) => idx !== index);
                     setImgs(res);
                   }}
                 />
@@ -354,6 +361,7 @@ const AddNewHouse = () => {
           </Section>
           <Section>
             <TextArea
+              value={formik.values.description}
               onChange={formik.handleChange}
               rows={6}
               placeholder="description"

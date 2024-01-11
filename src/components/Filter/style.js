@@ -34,9 +34,5 @@ const Section = styled.div`
   gap: 20px;
   margin-bottom: 20px;
 `;
-// const SelectAnt = styled(Select)`
-//   width: 120px;
-// `;
-// const SpaceAnt = styled(Space)``;
 
 export { Container, Icons, MenuWrapper, Section /*, SelectAnt, SpaceAnt*/ };
