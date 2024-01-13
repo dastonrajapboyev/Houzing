@@ -26,7 +26,7 @@ const Container = styled.input`
   justify-content: center;
   align-items: center;
   border-radius: 2px;
-  min-width: 120px;
+  /* min-width: 120px; */
   color: #000;
   padding-left: ${({ $icon }) => ($icon ? "35px" : "20px")};
 

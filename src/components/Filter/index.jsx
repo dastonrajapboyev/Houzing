@@ -11,16 +11,6 @@ const Filter = () => {
   const { REACT_APP_BASE_URL: url } = process.env;
   const [data, setData] = useState([]);
   const [value, setValue] = useState("");
-  // useEffect(() => {
-  //   if (query.get("category_id")) {
-  //     let res = data.filter(
-  //       (ctg) => ctg.id === Number(query.get("category_id"))
-  //     );
-  //     setValue(res?.name);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-  // const [cities, setCities] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
   const query = useSearch();
@@ -65,7 +55,7 @@ const Filter = () => {
 
 
   const onChangeCategory = (category_id) => {
-    setValue(category_id);
+    // setValue(category_id);
     navigate(`/properties/${uzeReplace("category_id", category_id)}`);
   };
 

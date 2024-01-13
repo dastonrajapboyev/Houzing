@@ -1,11 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import {
+  Blur,
   Container,
   Content,
   Description,
   Details,
   Icons,
+  ImageContainer,
+  ImgContainer,
   Section,
   User,
   Wrapper,
@@ -16,6 +19,7 @@ import { Checkbox } from "antd";
 import nouser from "../../assets/images/no-user-image.gif";
 import Yandex from "../Generic/Yandex";
 import Recent from "../Recent";
+import noImg from "../../assets/images/noimg.png";
 
 const { REACT_APP_BASE_URL: url } = process.env;
 
@@ -36,8 +40,31 @@ const HouseItem = () => {
   }, [params?.id]);
 
   console.log(data);
+
   return (
     <React.Fragment>
+      <ImageContainer>
+        <ImageContainer.Main
+          src={(data?.attachments && data?.attachments[0]?.imgPath) || noImg}
+          alt="test"
+        />
+        <ImgContainer>
+          {data.attachments?.slice(1, 5).map((value, index) => {
+            return data?.attachments?.length > 5 && index === 3 ? (
+              <Blur.Container key={`blur${index}`}>
+                <ImageContainer.Subimg src={value?.imgPath} alt="test" />
+                <Blur>+{data?.attachments?.length - 5}</Blur>
+              </Blur.Container>
+            ) : (
+              <ImageContainer.Subimg
+                key={index}
+                src={value?.imgPath}
+                alt="test"
+              />
+            );
+          })}
+        </ImgContainer>
+      </ImageContainer>
       <Wrapper>
         <Container $flex={3}>
           <Section>
@@ -64,9 +91,7 @@ const HouseItem = () => {
               </Details.Title>
 
               <Icons.Car />
-              <Details.Title>
-                car {data?.houseDetails?.Car || 0}
-              </Details.Title>
+              <Details.Title>car {data?.houseDetails?.Car || 0}</Details.Title>
 
               <Icons.Ruler />
               <Details.Title>
